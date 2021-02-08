@@ -1,0 +1,7 @@
+version: '3'
+services:
+  node:
+    build:
+      dockerfile: etc/docker/build/default/Dockerfile
+      context: ""
+    image: randock/onlineafspraken:latest

@@ -32,3 +32,13 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+docker-compose.yml
+.env
+jwt/*
+
+files
+/Dockerfile
+core
+schema.graphql
+.graphqlconfig
+checkstyle-result.xml
