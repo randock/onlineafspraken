@@ -1,48 +1,93 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller('/api')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get('Agendas')
-  async Agendas(@Param() params: Record<string, any>): Promise<string> {
-    return this.appService.query('getAgendas', params);
+  @Get('getAgendas')
+  async getAgendas(): Promise<string> {
+    return this.appService.query('getAgendas');
   }
-  @Get('AppointmentType')
-  async AppointmentType(@Param() params: Record<string, any>): Promise<string> {
-    return this.appService.query('getAppointmentType', params);
+
+  @Get('getAppointmentType')
+  async getAppointmentType(@Query('id') id: number): Promise<string> {
+    return this.appService.query('getAppointmentType', { id });
   }
-  @Get('AppointmentTypes')
-  async AppointmentTypes(@Param() params: Record<string, any>): Promise<string> {
-    return this.appService.query('getAppointmentTypes', params);
+
+  @Get('getAppointmentTypes')
+  async getAppointmentTypes(): Promise<string> {
+    return this.appService.query('getAppointmentTypes', {});
   }
-  @Get('Resource')
-  async Resource(@Param() params: Record<string, any>): Promise<string> {
-    return this.appService.query('getResource', params);
+
+  @Get('getResource')
+  async getResource(@Query('id') id: number): Promise<string> {
+    return this.appService.query('getResource', { id });
   }
-  @Get('Resources')
-  async Resources(@Param() params: Record<string, any>): Promise<string> {
-    return this.appService.query('getResources', params);
+
+  @Get('getResources')
+  async getResources(): Promise<string> {
+    return this.appService.query('getResources');
   }
-  @Get('Fields')
-  async Fields(@Param() params: Record<string, any>): Promise<string> {
-    return this.appService.query('getFields', params);
+
+  @Get('getFields')
+  async getFields(
+    @Query('AgendaId') AgendaId: number,
+    @Query('AppointmentTypeId') AppointmentTypeId: number,
+  ): Promise<string> {
+    return this.appService.query('getFields', {
+      AgendaId,
+      AppointmentTypeId,
+    });
   }
-  @Get('Customer')
-  async Customer(@Param() params: Record<string, any>): Promise<string> {
-    return this.appService.query('getCustomer', params);
+
+  @Get('getCustomers')
+  async getCustomers(): Promise<string> {
+    return this.appService.query('getCustomer');
   }
-  @Get('BookableDays')
-  async BookableDays(@Param() params: Record<string, any>): Promise<string> {
-    return this.appService.query('getBookableDays', params);
+
+  @Get('getCustomer')
+  async getCustomer(@Query('id') id: number): Promise<string> {
+    return this.appService.query('getCustomer', { id });
   }
-  @Get('BookableTimes')
-  async BookableTimes(@Param() params: Record<string, any>): Promise<string> {
-    return this.appService.query('getBookableTimes', params);
+
+  @Get('getBookableDays')
+  async getBookableDays(
+    @Query('AgendaId') AgendaId: number,
+    @Query('AppointmentTypeId') AppointmentTypeId: number,
+    @Query('ResourceId') ResourceId?: number,
+    @Query('StartDate') StartDate?: string,
+    @Query('EndDate') EndDate?: string,
+  ): Promise<string> {
+    return this.appService.query('getBookableDays', {
+      AgendaId,
+      AppointmentTypeId,
+      ResourceId,
+      StartDate,
+      EndDate,
+    });
   }
-  @Get('Agenda')
-  async Agenda(@Param() params: Record<string, any>): Promise<string> {
-    return this.appService.query('getAgenda', params);
+
+  @Get('getBookableTimes')
+  async getBookableTimes(
+    @Query('AgendaId') AgendaId: number,
+    @Query('Date') Date: string,
+    @Query('AppointmentTypeId') AppointmentTypeId: number,
+    @Query('ResourceId') ResourceId?: number,
+    @Query('StartTime') StartTime?: string,
+    @Query('EndTime') EndTime?: string,
+  ): Promise<string> {
+    return this.appService.query('getBookableTimes', {
+      AgendaId,
+      AppointmentTypeId,
+      ResourceId,
+      StartTime,
+      EndTime,
+    });
+  }
+
+  @Get('getAgenda')
+  async getAgenda(@Query('id') id: string): Promise<string> {
+    return this.appService.query('getAgenda', { id });
   }
 }

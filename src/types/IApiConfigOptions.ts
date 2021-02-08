@@ -1,5 +1,5 @@
 export interface IApiConfigOptions {
-  applicationId: string;
+  // applicationId: string;
   userToken: string;
   userSecret: string;
 }

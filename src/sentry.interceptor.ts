@@ -7,7 +7,7 @@ export class SentryInterceptor extends RavenInterceptor {
   constructor(app: INestApplication) {
     Sentry.init({
       environment: process.env.NODE_ENV,
-      dsn: 'https://bfa1c4434edb40f48524b19462a758e9@o160393.ingest.sentry.io/5627982',
+      dsn: 'https://6ff0a32dd4fe4f24a6e4bf420dbb23c7@o311077.ingest.sentry.io/5628284',
       integrations: [
         new Sentry.Integrations.Http(),
       ],
