@@ -1,10 +1,10 @@
-import { CacheTTL, Controller, Get, Query } from '@nestjs/common';
+import { Body, CacheTTL, Controller, Get, Post, Query } from '@nestjs/common';
 import { AppService } from '../service/app.service';
 import { GetBookableDaysDto } from '../types/query/get-bookable-days.dto';
 import { GetBookableTimesDto } from '../types/query/get-bookable-times.dto';
 import { GetFieldsDto } from '../types/query/get-fields.dto';
 import { AgendaDto } from '../types/response/agenda.dto';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AppointmentTypeDto } from '../types/response/appointment-type.dto';
 import { ResourceDto } from '../types/response/resource.dto';
 import { FieldDto } from '../types/response/field.dto';
@@ -16,6 +16,8 @@ import { GetAppointmentTypeDto } from '../types/query/get-appointment-type.dto';
 import { GetResourceDto } from '../types/query/get-resource.dto';
 import { GetCustomerDto } from '../types/query/get-customer.dto';
 import { ResponseTransformer } from '../service/response-transformer.service';
+import { SetCustomerDto as SetCustomerDtoQuery } from '../types/query/set-customer.dto';
+import { SetCustomerDto as SetCustomerDtoResponse } from '../types/response/set-customer.dto';
 
 @Controller('/api')
 export class AppController {
@@ -113,7 +115,7 @@ export class AppController {
     const xml = await this.appService.query('getBookableDays', {
       ...params,
     });
-    
+
     return this.responseTransformer.transform<BookableDayDto[]>(
       xml,
       ['Objects', 'BookableDay'],
@@ -133,5 +135,29 @@ export class AppController {
       ['Objects', 'BookableTime'],
       true,
     );
+  }
+
+  @Post('setCustomer')
+  @ApiOperation({ summary: 'Stores a customer' })
+  async setCustomer(@Body() params: SetCustomerDtoQuery): Promise<SetCustomerDtoResponse> {
+
+    const xml = await this.appService.query('setCustomer', {
+      ...params,
+      AccountNumber: 'NJT',
+    });
+
+    return xml;
+
+    // return this.responseTransformer.transform<BookableTimeDto[]>(
+    //   xml,
+    //   ['Objects', 'BookableTime'],
+    //   true,
+    // );
+  }
+  async removeAppointment(): Promise<any> {
+
+  }
+  async setAppointment(): Promise<any> {
+
   }
 }

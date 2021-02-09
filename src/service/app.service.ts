@@ -60,7 +60,9 @@ export class AppService {
       if (_.contains(excludeKeys, key)) {
         return;
       }
-      signatureString += key + params[key];
+      const signatureString1 = ('' + key + (params[key] ? params[key] : '')).replace(/\s/g, '');
+      console.log(signatureString1);
+      signatureString += signatureString1;
     });
     signatureString += this.options.userSecret;
     signatureString += salt;
