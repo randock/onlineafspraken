@@ -4,4 +4,4 @@ services:
     build:
       dockerfile: etc/docker/build/default/Dockerfile
       context: ""
-    image: randock/onlineafspraken:latest
+    image: randock/onlineafspraken:{{BRANCH}}-latest
