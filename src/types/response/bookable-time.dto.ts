@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class BookableTime {
+export class BookableTimeDto {
 
   @ApiProperty({ example: '2021-02-11' })
   Date: string

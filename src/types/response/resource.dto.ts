@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class Resource {
+export class ResourceDto {
 
   @ApiProperty({ example: '116711' })
   Id: string;

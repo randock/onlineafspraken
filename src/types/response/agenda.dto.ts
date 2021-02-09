@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class Agenda {
+export class AgendaDto {
   @ApiProperty({ example: '25796' })
   Id: string; //25796
 
