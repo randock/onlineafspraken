@@ -8,14 +8,16 @@ async function bootstrap(): Promise<void> {
   app.enableCors();
   app.useGlobalInterceptors(new SentryInterceptor(app));
 
-  const config = new DocumentBuilder()
-    .setTitle('Onlineafspraken API gateway')
-    .setDescription('NJT subset of resources')
-    .setVersion('1.0')
-    .addBearerAuth()
-    .build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  if (process.env.NODE_ENV === 'develop') {
+    const config = new DocumentBuilder()
+      .setTitle('Onlineafspraken API gateway')
+      .setDescription('NJT subset of resources')
+      .setVersion('1.0')
+      .addBearerAuth()
+      .build();
+    const document = SwaggerModule.createDocument(app, config);
+    SwaggerModule.setup('api', app, document);
+  }
 
   const port = parseInt(process.env.PORT) || 3000;
   await app.listen(port).then(() => {
