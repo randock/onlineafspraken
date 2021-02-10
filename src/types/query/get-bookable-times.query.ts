@@ -1,6 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
-export class GetBookableTimesDto {
+export class GetBookableTimesQuery {
   @ApiProperty({ example: 25796 })
   AgendaId: number;
 

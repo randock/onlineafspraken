@@ -1,5 +1,5 @@
 export interface ApiConfigOptionsInterface {
-  // applicationId: string;
-  userToken: string;
-  userSecret: string;
+  url: string;
+  token: string;
+  secret: string;
 }

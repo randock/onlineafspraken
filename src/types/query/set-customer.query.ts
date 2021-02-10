@@ -1,13 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
-export class SetCustomerDto {
-  // @ApiPropertyOptional({
-  //   example: '17dadced-635e-466d-b41f-f8044bd04956',
-  //   description:
-  //     'If an id is supplied, an existing customer is modified. If not, a new customer is created.',
-  // })
-  // id: number;
-
+export class SetCustomerQuery {
   @ApiProperty({ description: 'Email address', example: 'germen@randock.com' })
   Email: string;
 
@@ -63,13 +56,6 @@ export class SetCustomerDto {
   })
   Status: string;
 
-  // @ApiProperty({ description: 'Username of the account that the customer can use to login to their account. User account can only be created for new customers. For existing customers this parameter is ignored. If you don\'t want to create a user account leave this parameter empty.' })
-  // Username: string
-  //
-  //
-  // @ApiProperty({ description: 'STRING	The password of the user account. The password has to be at least 6 characters long. This parameter is required if you use the Username parameter to create a new user account.   ' })
-  // Password: string
-
-  // [variabel]
-  // STRING	Possible extra field as retrieved by getFields. Use the Key of the field as the name of the paraneter.
+  @ApiProperty({ description: 'AccountNumber', example: 'NJT' })
+  AccountNumber: string;
 }

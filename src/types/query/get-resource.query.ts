@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class GetResourceDto {
+export class GetResourceQuery {
   @ApiProperty({ example: 116711 })
   id: number;
 }

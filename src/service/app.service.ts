@@ -8,12 +8,15 @@ import { parseString } from 'xml2js';
 
 @Injectable()
 export class AppService {
-  private static readonly baseUrl = 'https://api.onlineafspraken.nl/APIREST';
+
+  private readonly baseUrl: string
 
   constructor(
     @Inject('API_OPTIONS') private readonly options: ApiConfigOptionsInterface,
     private httpService: HttpService,
-  ) {}
+  ) {
+    this.baseUrl = options.url;
+  }
 
   async query(method: string, params: ApiCallParamsInterface = {}): Promise<any> {
 
@@ -61,10 +64,10 @@ export class AppService {
         return;
       }
       const signatureString1 = ('' + key + (params[key] ? params[key] : '')).replace(/\s/g, '');
-      console.log(signatureString1);
+      // console.log(signatureString1);
       signatureString += signatureString1;
     });
-    signatureString += this.options.userSecret;
+    signatureString += this.options.secret;
     signatureString += salt;
 
     return '' + SHA1(signatureString);
@@ -78,14 +81,11 @@ export class AppService {
     const queryString = querystring.stringify({
       ...params,
       method,
-      api_key: this.options.userToken,
+      api_key: this.options.token,
       api_salt: salt,
       api_signature: signature,
     });
 
-    const uri = [AppService.baseUrl, queryString].join('?');
-    console.log(uri);
-
-    return uri;
+    return [this.baseUrl, queryString].join('?');
   }
 }

@@ -1,6 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
-export class GetFieldsDto {
+export class GetFieldsQuery {
   @ApiProperty({ example: 25796 })
   AgendaId: number
 
