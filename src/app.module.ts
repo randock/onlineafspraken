@@ -25,6 +25,13 @@ import { AuthGuard } from './auth/auth.guard';
       inject: [ConfigService],
     },
     {
+      provide: 'BEARER_TOKEN',
+      useFactory: (configService: ConfigService): string => {
+          return configService.get<string>('API_BEARER');
+      },
+      inject: [ConfigService],
+    },
+    {
       provide: APP_GUARD,
       useClass: AuthGuard,
     },

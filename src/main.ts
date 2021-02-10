@@ -9,9 +9,8 @@ async function bootstrap(): Promise<void> {
   app.useGlobalInterceptors(new SentryInterceptor(app));
 
   const config = new DocumentBuilder()
-    .setTitle('onlineafspraken gateway')
-    .setDescription('NuU-G_R@9?KZNY@!!GLcsyFTqB6@gt4KKNfF829MN??_F?85fedN@65AF+7p!!pk')
-    // .setDescription('NJT subset of resources')
+    .setTitle('Onlineafspraken API gateway')
+    .setDescription('NJT subset of resources')
     .setVersion('1.0')
     .addBearerAuth()
     .build();

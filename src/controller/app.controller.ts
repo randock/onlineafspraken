@@ -56,7 +56,7 @@ export class AppController {
   }
 
   @Get('getAgenda')
-  @ApiOperation({ summary: 'Get Agenda' })
+  @ApiOperation({ summary: 'Get Agenda by Id' })
   @ApiResponse({ status: 200, type: AgendaDto })
   async getAgenda(@Query() params: GetAgendaQuery): Promise<AgendaDto> {
     const xml = await this.appService.query('getAgenda', { ...params });
@@ -78,7 +78,7 @@ export class AppController {
   }
 
   @Get('getAppointmentType')
-  @ApiOperation({ summary: 'Gets an Appointment Type' })
+  @ApiOperation({ summary: 'Gets an Appointment Type by Id' })
   @ApiResponse({ status: 200, type: AppointmentTypeDto })
   async getAppointmentType(@Query() params: GetAppointmentTypeQuery): Promise<AppointmentTypeDto> {
     const xml = await this.appService.query('getAppointmentType', { ...params });
@@ -99,6 +99,7 @@ export class AppController {
   }
 
   @Get('getResource')
+  @ApiOperation({ summary: 'Get Resource by Id' })
   @ApiResponse({ status: 200, type: ResourceDto })
   async getResource(@Query() params: GetResourceQuery): Promise<ResourceDto> {
     const xml = await this.appService.query('getResource', { ...params });
@@ -107,6 +108,7 @@ export class AppController {
   }
 
   @Get('getFields')
+  @ApiOperation({ summary: 'Get extra fields required or not for customer or appointment creation' })
   @ApiResponse({ status: 200, type: [FieldDto]})
   async getFields(@Query() params: GetFieldsQuery): Promise<Array<FieldDto>> {
     const xml = await this.appService.query('getFields', {
@@ -117,15 +119,19 @@ export class AppController {
   }
 
   @Get('getCustomers')
+  @ApiOperation({ summary: 'Get Customers //@TODO filter by AccountNumber' })
   @ApiResponse({ status: 200, type: [CustomerDto]})
   async getCustomers(@Query() params: GetCustomersQuery): Promise<Array<CustomerDto>> {
-    const xml = await this.appService.query('getCustomers', { ...params });
+    const xml = await this.appService.query('getCustomers', {
+      ...params,
+      // AccountNumber: 'NJT',
+    });
 
     return this.responseTransformer.transform<CustomerDto[]>(xml, ['Objects', 'Customer'], true);
   }
 
   @Get('getCustomer')
-  @ApiOperation({ summary: 'Gets a customer' })
+  @ApiOperation({ summary: 'Gets a customer by Id' })
   @ApiResponse({ status: 200, type: CustomerDto })
   async getCustomer(@Query() params: GetCustomerQuery): Promise<CustomerDto> {
     const xml = await this.appService.query('getCustomer', { ...params });
@@ -149,7 +155,7 @@ export class AppController {
   }
 
   @Get('getBookableTimes')
-  @ApiOperation({ summary: 'Gets a Bookable Times for a day' })
+  @ApiOperation({ summary: 'Gets Bookable Times for a day' })
   @ApiResponse({ status: 200, type: [BookableTimeDto]})
   async getBookableTimes(@Query() params: GetBookableTimesQuery): Promise<Array<BookableTimeDto>> {
     const xml = await this.appService.query('getBookableTimes', {
@@ -230,7 +236,7 @@ export class AppController {
 
 
   @Get('getAppointment')
-  @ApiOperation({ summary: 'Gets an appointment' })
+  @ApiOperation({ summary: 'Gets an appointment by Id' })
   @ApiResponse({ status: 200, type: GetAppointmentDto })
   async getAppointment(@Query() params: GetAppointmentQuery): Promise<GetAppointmentDto> {
     const xml = await this.appService.query('getAppointment', {
