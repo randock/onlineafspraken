@@ -25,7 +25,13 @@ export class AppService {
         .get(this.buildUrl(method, params))
         .toPromise()
         .then(response => {
-          const options = { mergeAttrs: true, explicitArray: false, trim: true };
+          const options = { mergeAttrs: true,
+              explicitArray: false,
+              trim: true,
+              valueProcessors: [function(v): string | number {
+                  return isNaN(v) ? v : Number(parseInt(v, 10));
+              }],
+          };
           parseString(response.data, options, (err, result) => {
             if (err) {
               throw err;
@@ -64,7 +70,7 @@ export class AppService {
         return;
       }
       const signatureString1 = ('' + key + (params[key] ? params[key] : '')).replace(/\s/g, '');
-      // console.log(signatureString1);
+
       signatureString += signatureString1;
     });
     signatureString += this.options.secret;
