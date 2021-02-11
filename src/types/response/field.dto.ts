@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class FieldDto {
-  @ApiProperty({ example: '24830' })
-  Id: string;
+  @ApiProperty({ example: 24830 })
+  Id: number;
 
   @ApiProperty({ example: 'Klachten' })
   Label: string;
@@ -13,6 +13,6 @@ export class FieldDto {
   @ApiProperty({ example: 'Appointment', enum: ['Appointment', 'Registration']})
   Type: string;
 
-  @ApiProperty({ example: '1' })
-  Required: string;
+  @ApiProperty({ example: 1, enum: [1, 0]})
+  Required: number;
 }

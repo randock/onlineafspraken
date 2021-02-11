@@ -1,9 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class SetCustomerDto{
-  @ApiProperty()
+  @ApiProperty({ example: 14249528 })
   Id: number
 
-  @ApiProperty({ enum: { 1: 'enabled', 2: 'disabled', 3: 'deleted' } })
-  Status: string
+  @ApiProperty({ example: 1, enum: [1, 2, 3]})
+  Status: number
 }

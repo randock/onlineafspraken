@@ -2,8 +2,8 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class ResourceDto {
 
-  @ApiProperty({ example: '116711' })
-  Id: string;
+  @ApiProperty({ example: 116711 })
+  Id: number;
 
   @ApiProperty({ example: 'Locatie A' })
   Name: string;
@@ -23,9 +23,9 @@ export class ResourceDto {
   @ApiProperty({ example: '' })
   Email: string;
 
-  @ApiProperty({ example: '1' })
-  Status: string;
+  @ApiProperty({ example: 1 })
+  Status: number;
 
-  @ApiProperty({ example: '' })
-  Label: string;
+  @ApiProperty({ example: 1 })
+  Label: number;
 }

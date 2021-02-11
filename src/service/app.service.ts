@@ -5,11 +5,11 @@ import * as querystring from 'querystring';
 import { ApiConfigOptionsInterface } from '../types/api-config-options.interface';
 import { ApiCallParamsInterface } from '../types/api-call-params.interface';
 import { parseString } from 'xml2js';
+import * as base64 from 'uuid-base64';
 
 @Injectable()
 export class AppService {
-
-  private readonly baseUrl: string
+  private readonly baseUrl: string;
 
   constructor(
     @Inject('API_OPTIONS') private readonly options: ApiConfigOptionsInterface,
@@ -19,19 +19,40 @@ export class AppService {
   }
 
   async query(method: string, params: ApiCallParamsInterface = {}): Promise<any> {
+    const fields = params.AccountNumber
+      ? { AccountNumber: base64.encode(params.AccountNumber) }
+      : {};
+    const values = Object.assign(params, fields);
 
     return new Promise((resolve, reject) => {
       this.httpService
-        .get(this.buildUrl(method, params))
+        .get(this.buildUrl(method, values))
         .toPromise()
         .then(response => {
-          const options = { mergeAttrs: true, explicitArray: false, trim: true };
+          const options = {
+            mergeAttrs: true,
+            explicitArray: false,
+            trim: true,
+            valueProcessors: [
+              function(v: string, label: string): string | number {
+                if (['ZipCode', 'Phone', 'MobilePhone'].includes(label)) {
+                  return v;
+                }
+
+                if (label === 'AccountNumber' && v.length > 0) {
+                  return base64.decode(v);
+                }
+
+                return isNaN(v as any) ? v : v.indexOf('.') > -1 ? Number(v) : parseInt(v, 10);
+              },
+            ],
+          };
           parseString(response.data, options, (err, result) => {
             if (err) {
               throw err;
             }
 
-            if(result.Response.Status.Status === 'failed'){
+            if (result.Response.Status.Status === 'failed') {
               resolve({ error: result.Response.Status.Message });
             }
 
@@ -64,7 +85,7 @@ export class AppService {
         return;
       }
       const signatureString1 = ('' + key + (params[key] ? params[key] : '')).replace(/\s/g, '');
-      // console.log(signatureString1);
+
       signatureString += signatureString1;
     });
     signatureString += this.options.secret;

@@ -1,21 +1,21 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class AgendaDto {
-  @ApiProperty({ example: '25796' })
-  Id: string; //25796
+  @ApiProperty({ example: 25796 })
+  Id: number;
 
   @ApiProperty({ example: 'name' })
-  Name: string; //
+  Name: string;
 
   @ApiProperty({ example: 'D d/m/Y' })
-  DateFormat: string; //D d/m/Y
+  DateFormat: string;
 
   @ApiProperty({ example: 'H:i' })
-  TimeFormat: string; //H:i
+  TimeFormat: string;
 
-  @ApiProperty({ example: '5' })
-  AlignGrid: string; //5
+  @ApiProperty({ example: 5 })
+  AlignGrid: number;
 
-  @ApiProperty({ example: '1' })
-  IsDefault: string; //1
+  @ApiProperty({ example: 1 })
+  IsDefault: number;
 }

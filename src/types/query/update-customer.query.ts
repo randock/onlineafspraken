@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { SetCustomerQuery } from './set-customer.query';
 
-export class UpdateCustomerQuery extends SetCustomerQuery{
+export class UpdateCustomerQuery extends SetCustomerQuery {
   @ApiProperty({
     example: 14180555,
     description:

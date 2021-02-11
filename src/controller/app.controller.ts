@@ -29,14 +29,13 @@ import { ResponseTransformer } from '../service/response-transformer.service';
 import { SetCustomerQuery } from '../types/query/set-customer.query';
 import { SetCustomerDto } from '../types/response/set-customer.dto';
 import { UpdateCustomerQuery } from '../types/query/update-customer.query';
-import { GetCustomersQuery } from '../types/query/get-customers.query';
 import { SetAppointmentQuery } from '../types/query/set-appointment.query';
 import { SetAppointmentDto } from '../types/response/set-appointment.dto';
 import { ErrorResponseDto } from '../types/response/error-response.dto';
 import { GetAppointmentQuery } from '../types/query/get-appointment.query';
 import { GetAppointmentDto } from '../types/response/get-appointment.dto';
-// import { UpdateAppointmentQuery } from '../types/query/update-appointment.query';
 import { RemoveAppointmentQuery } from '../types/query/remove-appointment.query';
+import { GetTravelerQuery } from '../types/query/get-traveler.query';
 
 @ApiBearerAuth()
 @Controller('/api')
@@ -118,27 +117,6 @@ export class AppController {
     return this.responseTransformer.transform<FieldDto[]>(xml, ['Objects', 'Field'], true);
   }
 
-  @Get('getCustomers')
-  @ApiOperation({ summary: 'Get Customers //@TODO filter by AccountNumber' })
-  @ApiResponse({ status: 200, type: [CustomerDto]})
-  async getCustomers(@Query() params: GetCustomersQuery): Promise<Array<CustomerDto>> {
-    const xml = await this.appService.query('getCustomers', {
-      ...params,
-      // AccountNumber: 'NJT',
-    });
-
-    return this.responseTransformer.transform<CustomerDto[]>(xml, ['Objects', 'Customer'], true);
-  }
-
-  @Get('getCustomer')
-  @ApiOperation({ summary: 'Gets a customer by Id' })
-  @ApiResponse({ status: 200, type: CustomerDto })
-  async getCustomer(@Query() params: GetCustomerQuery): Promise<CustomerDto> {
-    const xml = await this.appService.query('getCustomer', { ...params });
-
-    return this.responseTransformer.transform<CustomerDto>(xml, ['Customer']);
-  }
-
   @Get('getBookableDays')
   @ApiOperation({ summary: 'Gets a Bookable days' })
   @ApiResponse({ status: 200, type: [BookableDayDto]})
@@ -169,6 +147,32 @@ export class AppController {
     );
   }
 
+  @Get('getCustomer')
+  @ApiOperation({ summary: 'Gets a customer by Id' })
+  @ApiResponse({ status: 200, type: CustomerDto })
+  async getCustomer(@Query() params: GetCustomerQuery): Promise<CustomerDto> {
+    const xml = await this.appService.query('getCustomer', { ...params });
+
+    return this.responseTransformer.transform<CustomerDto>(xml, ['Customer']);
+  }
+
+  @Get('getTraveler')
+  @ApiOperation({ summary: 'Gets a customer by AccountNumber (uuid)' })
+  @ApiResponse({ status: 200, type: CustomerDto })
+  async getTraveler(@Query() params: GetTravelerQuery): Promise<CustomerDto> {
+    if (typeof params.uuid !== 'string' || params.uuid.length !== 36){
+      throw new BadRequestException('Invalid uuid');
+    }
+
+    const AccountNumber = params.uuid;
+
+    const xml = await this.appService.query('getCustomers', {
+      AccountNumber,
+    });
+
+    return this.responseTransformer.transform<CustomerDto>(xml, ['Objects', 'Customer']);
+  }
+
   @Post('setCustomer')
   @ApiOperation({ summary: 'Stores a customer' })
   @ApiResponse({ status: 201, type: SetCustomerDto })
@@ -177,12 +181,11 @@ export class AppController {
 
     const xml = await this.appService.query('setCustomer', {
       ...params,
-      // AccountNumber: 'NJT',
     });
 
     return this.responseTransformer.transform<SetCustomerDto>(
       xml,
-      [],
+      ['Objects', 'Customer'],
     );
   }
 
@@ -193,12 +196,11 @@ export class AppController {
 
     const xml = await this.appService.query('setCustomer', {
       ...params,
-      // AccountNumber: 'NJT',
     });
 
     return this.responseTransformer.transform<SetCustomerDto>(
       xml,
-      [],
+      ['Objects', 'Customer'],
     );
   }
 
@@ -209,7 +211,6 @@ export class AppController {
   async setAppointment(@Body() params: SetAppointmentQuery): Promise<SetAppointmentDto> {
     const xml = await this.appService.query('setAppointment', {
       ...params,
-      // AccountNumber: 'NJT',
     });
 
     return this.responseTransformer.transform<SetAppointmentDto>(
@@ -218,30 +219,12 @@ export class AppController {
     );
   }
 
-  // @Put('updateAppointment')
-  // @ApiOperation({ summary: 'Creates an appointment' })
-  // // @ApiResponse({ status: 200, type: SetAppointmentDto })
-  // // @ApiResponse({ status: 400, type: ErrorResponseDto })
-  // async updateAppointment(@Body() params: UpdateAppointmentQuery): Promise<SetAppointmentDto> {
-  //   const xml = await this.appService.query('setAppointment', {
-  //     ...params,
-  //     // AccountNumber: 'NJT',
-  //   });
-  //
-  //   return this.responseTransformer.transform<SetAppointmentDto>(
-  //     xml,
-  //     ['Objects', 'Appointment'],
-  //   );
-  // }
-
-
   @Get('getAppointment')
   @ApiOperation({ summary: 'Gets an appointment by Id' })
   @ApiResponse({ status: 200, type: GetAppointmentDto })
   async getAppointment(@Query() params: GetAppointmentQuery): Promise<GetAppointmentDto> {
     const xml = await this.appService.query('getAppointment', {
       ...params,
-      // AccountNumber: 'NJT',
     });
 
     return this.responseTransformer.transform<GetAppointmentDto>(

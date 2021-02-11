@@ -14,12 +14,12 @@ export class BookableTimeDto {
   @ApiProperty({ example: '09:10' })
   EndTime: string
 
-  @ApiProperty({ example: '1613030400' })
-  Timestamp: string
+  @ApiProperty({ example: 1613030400 })
+  Timestamp: number
 
-  @ApiProperty({ example: '286853' })
-  AppointmentTypeId: string
+  @ApiProperty({ example: 286853 })
+  AppointmentTypeId: number
 
-  @ApiProperty({ example: '116717' })
-  ResourceId: string
+  @ApiProperty({ example: 116717 })
+  ResourceId: number
 }

@@ -1,7 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class SetCustomerQuery {
-  @ApiProperty({ description: 'Email address', example: 'germen@randock.com' })
+  @ApiProperty({ description: 'Email address', example: 'german@randock.com' })
   Email: string;
 
   @ApiProperty({ description: 'First name', example: 'Bruce' })
@@ -10,7 +10,7 @@ export class SetCustomerQuery {
   @ApiProperty({ description: 'Last name', example: 'Willis' })
   LastName: string;
 
-  @ApiPropertyOptional({ description: 'Name insertions', example: 'Mr' })
+  @ApiPropertyOptional({ description: 'Middle Name', example: 'Antonio' })
   Insertions: string;
 
   @ApiPropertyOptional({ description: 'Date of birth   FORMAT: YYYY-MM-DD', example: '1955-03-15' })
@@ -25,7 +25,7 @@ export class SetCustomerQuery {
   @ApiPropertyOptional({ description: 'House number', example: 18 })
   HouseNr: number;
 
-  @ApiPropertyOptional({ description: 'House number addition', example: 'Floor' })
+  @ApiPropertyOptional({ description: 'House number addition', example: 'A' })
   HouseNrAddition: string;
 
   @ApiPropertyOptional({ description: 'Zipcode', example: '90067' })
@@ -52,10 +52,10 @@ export class SetCustomerQuery {
   @ApiPropertyOptional({
     example: 1,
     description: 'Status of the customer',
-    enum: { 1: 'enabled', 2: 'disabled', 3: 'deleted' },
+    enum: [1, 2, 3],
   })
-  Status: string;
+  Status: number;
 
-  @ApiProperty({ description: 'AccountNumber', example: 'NJT' })
+  @ApiProperty({ description: 'Traveler uuid without', example: 'fed9f376-6c54-11eb-9439-0242ac130002' })
   AccountNumber: string;
 }

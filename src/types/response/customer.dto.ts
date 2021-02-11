@@ -1,19 +1,19 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CustomerDto {
-  @ApiProperty({ example: '14180546' })
-  Id: string;
+  @ApiProperty({ example: 14180546 })
+  Id: number;
 
   @ApiProperty({ example: 'NJT' })
   AccountNumber: string;
 
-  @ApiProperty({ example: 'x' })
+  @ApiProperty({ example: 'John' })
   FirstName: string;
 
-  @ApiProperty({ example: 'peters' })
+  @ApiProperty({ example: 'Cobra' })
   LastName: string;
 
-  @ApiProperty({ example: 'Jopete' })
+  @ApiProperty({ example: 'Antonio' })
   Insertions: string;
 
   @ApiProperty({ example: '1970-01-01' })
@@ -25,19 +25,19 @@ export class CustomerDto {
   @ApiProperty({ example: 'Espinosa' })
   Street: string;
 
-  @ApiProperty({ example: '8' })
-  HouseNr: string;
+  @ApiProperty({ example: 8 })
+  HouseNr: number;
 
   @ApiProperty({ example: '508' })
   HouseNrAddition: string;
 
-  @ApiProperty({ example: '46008' })
+  @ApiProperty({ example: '46008AZ' })
   ZipCode: string;
 
   @ApiProperty({ example: 'Valencia' })
   City: string;
 
-  @ApiProperty({ example: 'Nederland' })
+  @ApiProperty({ example: 'NL' })
   Country: string;
 
   @ApiProperty({ example: '0622622622' })
@@ -49,8 +49,8 @@ export class CustomerDto {
   @ApiProperty({ example: 'jop@randock.com' })
   Email: string;
 
-  @ApiProperty({ example: '1', enum: ['1', '2', '3']})
-  Status: string;
+  @ApiProperty({ example: 1, enum: [1, 2, 3]})
+  Status: number;
 
   @ApiProperty({ example: '2021-02-08 14:41:38' })
   UpdateTime: string;
